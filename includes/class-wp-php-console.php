@@ -77,12 +77,13 @@ class Plugin {
 			return;
 		}
 
+		$this->connect();
 		// Connect to PHP Console.
-		add_action( 'init', array( $this, 'connect' ), -100 );
-
+//		add_action( 'plugins_loaded', array( $this, 'connect' ), -100 );
+		$this->init();
 		// Delay further PHP Console initialisation
 		// to have more context during Remote PHP execution.
-		add_action( 'wp_loaded', array( $this, 'init' ), -100 );
+//		add_action( 'plugins_loaded', array( $this, 'init' ), -100 );
 
 	}
 
