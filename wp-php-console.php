@@ -70,3 +70,12 @@ if ( false === $this_plugin_checks->pass() ) {
 	require_once dirname( __FILE__ ) . '/includes/class-wp-php-console.php';
 	return new \WP_PHP_Console\Plugin();
 }
+
+
+function bwf_pc_debug( $data, $tags = null, $ignoreTraceCalls = 0 ) {
+	PC::debug( $data, $tags, $ignoreTraceCalls );
+}
+
+
+
+
