@@ -57,35 +57,40 @@ class Plugin {
 
 
 	/**
-	 * Load plugin and connect to PHP Console.
-	 *
-	 * @since 1.0.0
-	 */
-	public function __construct() {
+     * Load plugin and connect to PHP Console.
+     *
+     * @since 1.0.0
+     */
+    public function __construct() {
 
-		// Handle translations.
-		add_action( 'plugins_loaded', array( $this, 'set_locale' ) );
+        // Handle translations.
+        add_action( 'plugins_loaded', array( $this, 'set_locale' ) );
 
-		// Set options.
-		$this->options = $this->get_options();
+        // Set options.
+        $this->options = $this->get_options();
 
-		// Load admin.
-		$this->set_admin();
+        // Load admin.
+        $this->set_admin();
 
-		// Bail out if PHP Console can't be found.
-		if ( ! class_exists( 'PhpConsole\Connector' ) ) {
-			return;
-		}
+        // Bail out if PHP Console can't be found.
+        if ( ! class_exists( 'PhpConsole\Connector' ) ) {
+            return;
+        }
 
-		$this->connect();
-		// Connect to PHP Console.
-//		add_action( 'plugins_loaded', array( $this, 'connect' ), -100 );
-		$this->init();
-		// Delay further PHP Console initialisation
-		// to have more context during Remote PHP execution.
-//		add_action( 'plugins_loaded', array( $this, 'init' ), -100 );
 
-	}
+
+        if(defined('DOING_CRON') && true === DOING_CRON) {
+            return;
+        }
+        $this->connect();
+        // Connect to PHP Console.
+//        add_action( 'plugins_loaded', array( $this, 'connect' ), -100 );
+        $this->init();
+        // Delay further PHP Console initialisation
+        // to have more context during Remote PHP execution.
+//        add_action( 'plugins_loaded', array( $this, 'init' ), -100 );
+
+    }
 
 
 	/**
